@@ -14,7 +14,7 @@ struct HomeView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            TaskListView()
+            HabitListView()
             .tabItem {
                 Image(systemName: "house")
             }

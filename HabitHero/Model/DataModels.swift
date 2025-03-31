@@ -27,6 +27,21 @@ var unitsOfMeasure: Array<String> = ["times", "steps", "m", "km", "sec", "min", 
 
 var colors: [String: Color] = ["blue": .blue, "red": .red, "green": .green, "yellow": .yellow, "orange": .orange, "purple": .purple, "brown": .brown, "gray": .gray, "cyan": .cyan, "indigo": .indigo, "mint": .mint, "teal": .teal]
 
+var reversedColors: [Color: String] = [
+    .blue: "blue",
+    .red: "red",
+    .green: "green",
+    .yellow: "yellow",
+    .orange: "orange",
+    .purple: "purple",
+    .brown: "brown",
+    .gray: "gray",
+    .cyan: "cyan",
+    .indigo: "indigo",
+    .mint: "mint",
+    .teal: "teal"
+]
+
 enum GoalPeriodType: String, CaseIterable, Codable, Identifiable {
     case everyDay = "Every day"
     case specificWeekDays = "Specific week days"
@@ -49,10 +64,11 @@ enum GoalPeriodType: String, CaseIterable, Codable, Identifiable {
 
 let taskIcons: [String] = ["figure.run", "figure.walk", "book", "graduationcap", "bed.double", "figure.walk.treadmill", "figure.basketball", "figure.elliptical", "dumbbell", "pills.fill", "desktopcomputer"]
 
-struct Task: Hashable, Identifiable, Codable {
+struct Habit: Hashable, Identifiable, Codable {
     var id: UUID
     
     var name: String
+    var description: String
     var icon: String
     var color: String
     
@@ -131,12 +147,21 @@ struct Task: Hashable, Identifiable, Codable {
         return formatter.string(from: duration)!
     }
     
-    init(name: String, icon: String, color: String, goal: Int, unitOfMeasure: String, goalPeriod: GoalPeriodType, specificWeekDays: Array<Int>, numberOfDaysPerWeek: Int, specificDaysOfMonth: Array<Int>, numberOfDaysPerMonth: Int, startDate: Date, endDate: Date) {
+    public static func newInstance() -> Habit {
+        let today: Date = .now
+        let dayOfWeek = Calendar.current.component(.weekday, from: today)
+        let dayOfMonth = Calendar.current.component(.day, from: today)
+        
+        return Habit(name: "", description: "", icon: "plus", color: "gray", goal: 0, unitOfMeasure: "times", goalPeriod: .everyDay, specificWeekDays: [dayOfWeek], numberOfDaysPerWeek: 1, specificDaysOfMonth: [dayOfMonth], numberOfDaysPerMonth: 1, startDate: today, endDate: today)
+    }
+    
+    init(name: String, description: String, icon: String, color: String, goal: Int, unitOfMeasure: String, goalPeriod: GoalPeriodType, specificWeekDays: Array<Int>, numberOfDaysPerWeek: Int, specificDaysOfMonth: Array<Int>, numberOfDaysPerMonth: Int, startDate: Date, endDate: Date) {
         self.id = UUID.init()
         self.name = name
+        self.description = description
         self.icon = icon
         self.color = color
-        self.goal = Task.convertToSeccondsIfTimeable(time: goal, unitOfMeasure: unitOfMeasure)
+        self.goal = Habit.convertToSeccondsIfTimeable(time: goal, unitOfMeasure: unitOfMeasure)
         self.unitOfMeasure = unitOfMeasure
         self.goalPeriod = goalPeriod
         self.specificWeekDays = specificWeekDays
@@ -151,8 +176,8 @@ struct Task: Hashable, Identifiable, Codable {
     }
 }
 
-var tasks: [Task] = []
-var preloadedTasks: [Task] = load("preloaded_tasks.json")
+var habits: [Habit] = []
+var preloadedHabits: [Habit] = load("preloaded_tasks.json")
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data

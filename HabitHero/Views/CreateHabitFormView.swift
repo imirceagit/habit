@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct CreateTaskFormView: View {
+struct CreateHabitFormView: View {
     @Environment(\.dismiss) var dismiss
-    
-    @Binding var root: Bool
     
     let weekDays = Calendar(identifier: .gregorian).weekdaySymbols
     let dayOfWeek = Calendar.current.component(.weekday, from: .now)
     let dayOfMonth = Calendar.current.component(.day, from: .now)
+    
+    @Binding var habit: Habit?
     
     @State private var selectIcon: Bool = false
     @State private var selectColor: Bool = false
@@ -87,11 +87,11 @@ struct CreateTaskFormView: View {
                                 .fill(selectedColor.opacity(0.3))
                                 .frame(height: 25)
                             TextField("", value: $goalValue, format: .number)
-                                .frame(width: 40)
+                                .frame(width: 80)
                                 .multilineTextAlignment(.center)
                                 .keyboardType(.numberPad)
                         }
-                        .frame(width: 50)
+                        .frame(width: 80)
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(selectedColor.opacity(0.3))
@@ -208,9 +208,12 @@ struct CreateTaskFormView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save", action: {  })
+                    Button("Save", action: { saveNewHabit() })
                 }
             }
+        }
+        .onAppear {
+            loadHabitData()
         }
     }
     
@@ -219,8 +222,34 @@ struct CreateTaskFormView: View {
             selectedEndDate = selectedStartDate
         }
     }
+    
+    func saveNewHabit() {
+        let color: String = reversedColors[selectedColor] ?? "gray"
+        habit = Habit(name: habitName, description: habitDescription, icon: selectedIcon, color: color, goal: goalValue, unitOfMeasure: selectedGoalUnitOfMeasure, goalPeriod: selectedGoalPeriod, specificWeekDays: specificWeekDays, numberOfDaysPerWeek: numberOfDaysPerWeek, specificDaysOfMonth: specificDaysOfMonth, numberOfDaysPerMonth: numberOfDaysPerMonth, startDate: selectedStartDate, endDate: selectedEndDate)
+        
+        dismiss()
+    }
+    
+    func loadHabitData() {
+        habitName = habit?.name ?? ""
+        habitDescription = habit?.description ?? ""
+        selectedIcon = habit?.icon ?? "plus"
+        let color = habit?.color ?? "gray"
+        selectedColor = colors[color] ?? .gray
+        
+        goalValue = habit?.goal ?? 0
+        selectedGoalUnitOfMeasure = habit?.unitOfMeasure ?? "times"
+        selectedGoalPeriod = habit?.goalPeriod ?? .everyDay
+        specificWeekDays = habit?.specificWeekDays ?? []
+        numberOfDaysPerWeek = habit?.numberOfDaysPerWeek ?? 1
+        specificDaysOfMonth = habit?.specificDaysOfMonth ?? []
+        numberOfDaysPerMonth = habit?.numberOfDaysPerMonth ?? 1
+        
+        selectedStartDate = habit?.startDate ?? Date.now
+        selectedEndDate = habit?.endDate ?? Date.now.addingTimeInterval(86400)
+    }
 }
 
 #Preview {
-    CreateTaskFormView(root: .constant(true))
+    CreateHabitFormView(habit: .constant(preloadedHabits[0]))
 }

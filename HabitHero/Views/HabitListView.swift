@@ -7,21 +7,23 @@
 
 import SwiftUI
 
-struct TaskListView: View {
+struct HabitListView: View {
     
-    @State var isRootPresented = false
-    
+    @State var isCreateHabit = false
     @State private var path = NavigationPath()
+    
+    @State private var items: [Habit] = habits
+    @State private var selectedHabit: Habit?
     
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
                 LazyVStack(alignment: .leading) {
-                    ForEach(preloadedTasks) { task in
+                    ForEach(items) { habit in
                         Button {
-                            path.append(task)
+                            path.append(habit)
                         } label: {
-                            TaskListItemView(task: task)
+                            HabitListItemView(habit: habit)
                         }
                         .listRowInsets(.init(top: 0, leading: 10, bottom: 5, trailing: 10))
                         .listRowSeparator(.hidden)
@@ -31,15 +33,20 @@ struct TaskListView: View {
                 .padding(.horizontal, 5.0)
             }
             .listStyle(.plain)
-            .navigationDestination(for: Task.self) { task in
-                TaskTimerView(task: task)
+            .navigationDestination(for: Habit.self) { habit in
+                HabitTimerView(habit: .constant(habit))
             }
-            .navigationTitle("Tasks")
+            .navigationTitle("Habits")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Add", action: { isRootPresented = true })
-                        .fullScreenCover(isPresented: $isRootPresented, content: { CreateTaskFormView(root: $isRootPresented) })
+                    Button("Add", action: {
+                        isCreateHabit = true
+                        selectedHabit = Habit.newInstance()
+                        habits.append(selectedHabit!)
+                        items.append(selectedHabit!)
+                    })
+                    .fullScreenCover(isPresented: $isCreateHabit, content: { CreateHabitFormView(habit: $selectedHabit) })
                 }
             }
         }
@@ -47,5 +54,5 @@ struct TaskListView: View {
 }
 
 #Preview {
-    TaskListView()
+    HabitListView()
 }

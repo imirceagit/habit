@@ -7,31 +7,31 @@
 
 import SwiftUI
 
-struct TaskListItemView: View {
+struct HabitListItemView: View {
     
-    var task: Task
+    var habit: Habit
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(task.colorValue().opacity(0.2))
+                    .fill(habit.colorValue().opacity(0.2))
                 
                 Rectangle()
-                    .fill(task.colorValue().opacity(0.2))
-                    .frame(width: geometry.size.width * task.progressRatio())
+                    .fill(habit.colorValue().opacity(0.2))
+                    .frame(width: geometry.size.width * habit.progressRatio())
                 HStack {
-                    Image(systemName: task.icon)
-                        .foregroundColor(task.colorValue())
+                    Image(systemName: habit.icon)
+                        .foregroundColor(habit.colorValue())
                         .font(.system(size: 24))
                         .fixedSize()
                         
-                    Text(task.name)
+                    Text(habit.name)
                         .font(.system(size: 24))
                     
                     Spacer()
                     
-                    Text(progressText(task))
+                    Text(progressText(habit))
                         .font(.system(size: 18))
                         .fontWeight(.light)
                 }
@@ -42,14 +42,14 @@ struct TaskListItemView: View {
         .cornerRadius(10)
     }
     
-    func progressText(_ task: Task) -> String {
-        "\(task.progressFormatted())/\(task.goalValue())\(task.unitOfMeasure)"
+    func progressText(_ habit: Habit) -> String {
+        "\(habit.progressFormatted())/\(habit.goalValue())\(habit.unitOfMeasure)"
     }
 }
 
 #Preview {
     Group {
-        TaskListItemView(task: preloadedTasks[0])
-        TaskListItemView(task: preloadedTasks[1])
+        HabitListItemView(habit: preloadedHabits[0])
+        HabitListItemView(habit: preloadedHabits[1])
     }
 }

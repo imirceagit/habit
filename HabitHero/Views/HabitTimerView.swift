@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct TaskTimerView: View {
+struct HabitTimerView: View {
     
-    var task: Task
+    @State var isEditHabit = false
+    
+    @Binding var habit: Habit?
     
     let formatter = DateComponentsFormatter()
     
@@ -26,28 +28,34 @@ struct TaskTimerView: View {
                 .frame(width: 250, height: 250)
             
             Circle()
-                .trim(from: 0.0, to: task.progressRatio())
-                .stroke(task.colorValue(), style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                .trim(from: 0.0, to: habit!.progressRatio())
+                .stroke(habit!.colorValue(), style: StrokeStyle(lineWidth: 30, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .frame(width: 250, height: 250)
             VStack {
                 Text("Elapsed time: \(String(format: "%02d", percentageTimeLapsed()))%")
                     .font(.footnote)
                     .padding(.bottom, 2.0)
-                Text(formatter.string(from: task.progressTimeInterval())!)
+                Text(formatter.string(from: habit!.progressTimeInterval())!)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 2.0)
             }
         }
         .padding()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Add", action: { isEditHabit = true })
+                    .fullScreenCover(isPresented: $isEditHabit, content: { CreateHabitFormView(habit: $habit) })
+            }
+        }
     }
     
     func percentageTimeLapsed() -> Int {
-        Int(task.progressRatio() * 100)
+        Int(habit!.progressRatio() * 100)
     }
 }
 
 #Preview {
-    TaskTimerView(task: preloadedTasks[1])
+    HabitTimerView(habit: .constant(preloadedHabits[1]))
 }
