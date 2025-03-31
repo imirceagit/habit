@@ -1,0 +1,181 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "            " : {
+
+    },
+    "*Complete on any 3 days of the month" : {
+
+    },
+    "*Complete on any 3 days of the week" : {
+
+    },
+    "*Task needs to be done every %@" : {
+
+    },
+    "/Day" : {
+
+    },
+    "%@" : {
+
+    },
+    "%lld" : {
+
+    },
+    "1" : {
+
+    },
+    "Add" : {
+
+    },
+    "Back" : {
+
+    },
+    "Color" : {
+
+    },
+    "Create habit" : {
+
+    },
+    "Description" : {
+
+    },
+    "Elapsed time: %@%%" : {
+
+    },
+    "End Date" : {
+
+    },
+    "Every day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zilnic"
+          }
+        }
+      }
+    },
+    "Every Day" : {
+
+    },
+    "Go" : {
+
+    },
+    "Go to New View" : {
+
+    },
+    "Goal period" : {
+
+    },
+    "Goal value" : {
+
+    },
+    "Habit name" : {
+
+    },
+    "Habit Term" : {
+
+    },
+    "Home" : {
+
+    },
+    "Home Screen" : {
+
+    },
+    "New View" : {
+
+    },
+    "Number of days per month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Număr de zile pe lună"
+          }
+        }
+      }
+    },
+    "Number of days per week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Număr de zile pe săptămâna"
+          }
+        }
+      }
+    },
+    "Save" : {
+
+    },
+    "Select color" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează culoare"
+          }
+        }
+      }
+    },
+    "Select icon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează imagine"
+          }
+        }
+      }
+    },
+    "Select unit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selectează unitate"
+          }
+        }
+      }
+    },
+    "Specific days of month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anumite zile din lună"
+          }
+        }
+      }
+    },
+    "Specific week days" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anumite zile din săptămână"
+          }
+        }
+      }
+    },
+    "Start Date" : {
+
+    },
+    "Tasks" : {
+
+    }
+  },
+  "version" : "1.0"
+}

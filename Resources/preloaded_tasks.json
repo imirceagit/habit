@@ -1,0 +1,38 @@
+[
+    {
+        "icon": "figure.walk",
+        "id": "32617776-2FDB-464B-8FA1-C6C80C77E89E",
+        "numberOfDaysPerWeek": 0,
+        "unitOfMeasure": "min",
+        "name": "Walk",
+        "color": "blue",
+        "isCompleted": false,
+        "endDate": 63113904000,
+        "numberOfDaysPerMonth": 0,
+        "goal": 1800,
+        "specificWeekDays": [],
+        "isActive": true,
+        "startDate": 765070520.680241,
+        "goalPeriod": "Every day",
+        "specificDaysOfMonth": [],
+        "progress": 680
+    },
+    {
+        "numberOfDaysPerMonth": 0,
+        "numberOfDaysPerWeek": 0,
+        "name": "Run",
+        "icon": "figure.run",
+        "isCompleted": false,
+        "id": "CD52B302-539A-4D59-BF7B-4C04C2AE1D55",
+        "unitOfMeasure": "hr",
+        "startDate": 765070520.684524,
+        "specificWeekDays": [],
+        "goalPeriod": "Every day",
+        "isActive": true,
+        "goal": 3600,
+        "specificDaysOfMonth": [],
+        "endDate": 63113904000,
+        "progress": 1852,
+        "color": "red"
+    }
+]
